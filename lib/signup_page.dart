@@ -44,7 +44,7 @@ class SignUpPage extends StatelessWidget {
                 // Input Email
                 TextField(
                   decoration: InputDecoration(
-                    hintText: "Username",
+                    hintText: "Nickname",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),

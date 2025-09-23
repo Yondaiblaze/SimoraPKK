@@ -16,7 +16,7 @@ class _LoginPageState extends State<LoginPage> {
     String nik = nikController.text.trim();
     String password = passwordController.text.trim();
 
-    if (nik == "123456789" && password == "user123") {
+    if (nik == "123456789" && password == "user12345") {
       // Pindah ke halaman HomePage.dart
       Navigator.pushReplacement(
         context,
