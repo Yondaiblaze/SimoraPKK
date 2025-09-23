@@ -36,7 +36,7 @@ class SignUpPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 const Text(
-                  "Create an account, It’s free",
+                  "Create an account, It’s gratis",
                   style: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
                 const SizedBox(height: 32),

@@ -146,7 +146,7 @@ class HomePage extends StatelessWidget {
                             const SizedBox(width: 12),
                             const Expanded(
                               child: Text(
-                                "Lihat riwayat lokasi terakhir Anda",
+                                "Lihat riwayat lokasi terakhir Kamu",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 14),
                               ),
