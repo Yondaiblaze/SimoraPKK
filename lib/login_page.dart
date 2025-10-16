@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'home_page.dart'; // import halaman home
+import 'home_page.dart';
+import 'services/api_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -9,25 +10,32 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController nikController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _nikController = TextEditingController();
+  bool _isLoading = false;
 
-  void _login() {
-    String nik = nikController.text.trim();
-    String password = passwordController.text.trim();
+  Future<void> _login() async {
+    setState(() {
+      _isLoading = true;
+    });
 
-    if (nik == "12345" && password == "user12345") {
-      // Pindah ke halaman HomePage.dart
+    final name = _nameController.text.trim();
+    final nik = _nikController.text.trim();
+
+    final result = await ApiService.login(name, nik);
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    if (result['status'] == 'success') {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const HomePage()),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("NIK atau Password salah"),
-          backgroundColor: Colors.red,
-        ),
+        SnackBar(content: Text(result['message'] ?? 'Login gagal')),
       );
     }
   }
@@ -35,89 +43,28 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFB3E5FC),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Container(
-            padding: const EdgeInsets.all(24),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(24),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 10,
-                  spreadRadius: 2,
-                  offset: const Offset(0, 5),
-                ),
-              ],
+      body: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(
+              controller: _nameController,
+              decoration: const InputDecoration(labelText: 'Nama'),
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Text(
-                  "Login",
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                  "Masukkan NIK dan Password Anda",
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
-                ),
-                const SizedBox(height: 32),
-
-                // Input NIK
-                TextField(
-                  controller: nikController,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    labelText: "NIK",
-                    prefixIcon: const Icon(Icons.badge),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-
-                // Input Password
-                TextField(
-                  controller: passwordController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: "Password",
-                    prefixIcon: const Icon(Icons.lock),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 24),
-
-                // Tombol Login
-                ElevatedButton(
-                  onPressed: _login,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    foregroundColor: Colors.white,
-                    minimumSize: const Size(double.infinity, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                  child: const Text(
-                    "Login",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ],
+            const SizedBox(height: 16),
+            TextField(
+              controller: _nikController,
+              decoration: const InputDecoration(labelText: 'NIK'),
             ),
-          ),
+            const SizedBox(height: 32),
+            ElevatedButton(
+              onPressed: _isLoading ? null : _login,
+              child: _isLoading
+                  ? const CircularProgressIndicator(color: Colors.white)
+                  : const Text("Login"),
+            ),
+          ],
         ),
       ),
     );
