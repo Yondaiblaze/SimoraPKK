@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
       ),
       body: const Center(
         child: Text(
-          'Selamat datang di Simora!',
+          'Welcome Home di Simora!',
           style: TextStyle(fontSize: 20),
         ),
       ),

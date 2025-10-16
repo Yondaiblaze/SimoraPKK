@@ -57,7 +57,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       const SizedBox(height: 12),
                       const Text(
-                        'Ahmad Fadli',
+                        'Daiva Afdal',
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.w600,
