@@ -24,15 +24,15 @@ class _NotificationPageState extends State<NotificationPage> {
       isRead: false,
     ),
     NotificationItem(
-      title: 'Peminjaman Disetujui',
+      title: 'Booking Disetujui',
       message: 'Peminjaman mobil Mitsubishi Pajero untuk tanggal 15 Okt telah disetujui',
       time: '2 jam lalu',
       type: NotificationType.approved,
       isRead: true,
     ),
     NotificationItem(
-      title: 'Peminjaman Ditolak',
-      message: 'Peminjaman mobil Toyota Innova untuk tanggal 16 Okt ditolak',
+      title: 'Booking Ditolak',
+      message: 'Booking mobil Toyota Innova untuk tanggal 16 Okt ditolak',
       time: '3 jam lalu',
       type: NotificationType.rejected,
       isRead: true,
