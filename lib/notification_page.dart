@@ -19,7 +19,7 @@ class _NotificationPageState extends State<NotificationPage> {
     NotificationItem(
       title: 'Perjalanan Selesai',
       message: 'Honda CR-V (B 5678 ABC) telah tiba di tujuan',
-      time: '1 jam lalu',
+      time: '2 jam lalu',
       type: NotificationType.completed,
       isRead: false,
     ),
